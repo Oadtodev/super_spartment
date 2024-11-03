@@ -1,0 +1,136 @@
+<div class="bg-white p-4 rounded-md w-full">
+  <!-- Debug: Check if users array exists -->
+  <% if (typeof users === 'undefined') { %>
+    <div class="text-red-500">Error: Users data not found</div>
+  <% } else { %>
+
+  <div class="flex items-center justify-between pb-6">
+    <div>
+      <h2 class="text-gray-600 font-semibold">Users List</h2>
+      <span class="text-xs">Manage all users</span>
+    </div>
+    
+    <div class="flex items-center justify-between">
+      <div class="flex bg-gray-50 items-center p-2 rounded-md">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+        </svg>
+        <input class="bg-gray-50 outline-none ml-1 block" type="text" id="searchInput" placeholder="search...">
+      </div>
+      <button id="addUserBtn" class="ml-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Add User
+      </button>
+    </div>
+  </div>
+
+  <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+    <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
+      <table class="min-w-full leading-normal">
+        <thead>
+          <tr>
+            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">User</th>
+            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Room</th>
+            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Contact</th>
+            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Status</th>
+            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% users.forEach(user => { %>
+            <tr>
+              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0 w-10 h-10">
+                    <img class="w-full h-full rounded-full" src="<%= user.image %>" alt="">
+                  </div>
+                  <div class="ml-3">
+                    <p class="text-gray-900 whitespace-no-wrap"><%= user.name %></p>
+                    <p class="text-gray-600 whitespace-no-wrap"><%= user.citizenid %></p>
+                  </div>
+                </div>
+              </td>
+              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                <p class="text-gray-900 whitespace-no-wrap">Room <%= user.room %></p>
+              </td>
+              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                <p class="text-gray-900 whitespace-no-wrap"><%= user.tel %></p>
+                <p class="text-gray-600 whitespace-no-wrap"><%= user.carinfo %></p>
+              </td>
+              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                  <span aria-hidden class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
+                  <span class="relative">Active</span>
+                </span>
+              </td>
+              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                <div class="flex space-x-3">
+                  <button onclick="editUser('<%= user._id %>')" class="text-blue-500 hover:text-blue-700">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  <button onclick="deleteUser('<%= user._id %>')" class="text-red-500 hover:text-red-700">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Add User Modal -->
+  <div id="addModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden overflow-y-auto h-full w-full">
+    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+      <div class="mt-3 text-center">
+        <h3 class="text-lg leading-6 font-medium text-gray-900">Add New User</h3>
+        <form action="/api/add_users" method="POST" class="mt-2 text-left">
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Name</label>
+            <input type="text" name="name" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+          </div>
+          <!-- Add other form fields as needed -->
+          <div class="flex justify-between mt-4">
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Save</button>
+            <button type="button" onclick="closeModal('addModal')" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <% } %>
+</div>
+
+<script>
+function editUser(userId) {
+  // Implement edit functionality
+  console.log('Editing user:', userId);
+}
+
+function deleteUser(userId) {
+  if(confirm('Are you sure you want to delete this user?')) {
+    window.location.href = `/api/deleteusers/${userId}`;
+  }
+}
+
+function closeModal(modalId) {
+  document.getElementById(modalId).classList.add('hidden');
+}
+
+// Search functionality
+document.getElementById('searchInput').addEventListener('keyup', function(e) {
+  const searchText = e.target.value.toLowerCase();
+  const tableRows = document.querySelectorAll('tbody tr');
+  
+  tableRows.forEach(row => {
+    const text = row.textContent.toLowerCase();
+    row.style.display = text.includes(searchText) ? '' : 'none';
+  });
+});
+
+// Add user button handler
+document.getElementById('addUserBtn').addEventListener('click', function() {
+  document.getElementById('addModal').classList.remove('hidden');
+});
+</script>

@@ -1,0 +1,158 @@
+<%-include('../public/test.html')%>
+
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold mb-8">Rent Calculation</h1>
+
+  <form class="bg-white shadow-md rounded px-8  pb-8 mb-4" action="/api/rent_cal" method="POST">
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-bold mb-2" for="room">
+        Room Number
+      </label>
+      <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+             id="room" 
+             type="number" 
+             name="room" 
+             required>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="fire_unitbefore">
+          Electricity Unit (Before)
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+               id="fire_unitbefore" 
+               type="number" 
+               name="fire_unitbefore"
+               required>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="fire_unitafter">
+          Electricity Unit (After)
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+               id="fire_unitafter" 
+               type="number" 
+               name="fire_unitafter"
+               required>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="water_unitbefore">
+          Water Unit (Before)
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+               id="water_unitbefore" 
+               type="number" 
+               name="water_unitbefore"
+               required>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="water_unitafter">
+          Water Unit (After)
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+               id="water_unitafter" 
+               type="number" 
+               name="water_unitafter"
+               required>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="price_per_unit_fire">
+          Electricity Price per Unit
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+               id="price_per_unit_fire" 
+               type="number" 
+               name="price_per_unit_fire"
+               step="0.01"
+               required>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="price_per_unit_water">
+          Water Price per Unit
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+               id="price_per_unit_water" 
+               type="number" 
+               name="price_per_unit_water"
+               step="0.01"
+               required>
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="price_room">
+          price_room
+        </label>
+        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+               id="price_room" 
+               type="number" 
+               name="price_room"
+               step="0.01"
+               required>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-3 gap-4 mb-6">
+      <div class="text-right">
+        <label class="block text-gray-700 text-sm font-bold mb-2">Total Electricity:</label>
+        <span id="total_fire" class="text-xl font-bold">0.00</span>
+      </div>
+      <div class="text-right">
+        <label class="block text-gray-700 text-sm font-bold mb-2">Total Water:</label>
+        <span id="total_water" class="text-xl font-bold">0.00</span>
+      </div>
+      
+      <div class="text-right">
+        <label class="block text-gray-700 text-sm font-bold mb-2">Total Amount:</label>
+        <span id="total_amount" class="text-xl font-bold">0.00</span>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between">
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
+              type="submit">
+        Calculate and Save
+      </button>
+      <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
+              type="reset">
+        Reset
+      </button>
+    </div>
+  </form>
+</div>
+
+<script>
+  // Calculate totals on input change
+  const form = document.querySelector('form');
+  const inputs = form.querySelectorAll('input[type="number"]');
+  
+  inputs.forEach(input => {
+    input.addEventListener('input', calculateTotals);
+  });
+
+  function calculateTotals() {
+    const fireUnitBefore = parseFloat(document.getElementById('fire_unitbefore').value) || 0;
+    const fireUnitAfter = parseFloat(document.getElementById('fire_unitafter').value) || 0;
+    const waterUnitBefore = parseFloat(document.getElementById('water_unitbefore').value) || 0;
+    const waterUnitAfter = parseFloat(document.getElementById('water_unitafter').value) || 0;
+    const pricePerUnitFire = parseFloat(document.getElementById('price_per_unit_fire').value) || 0;
+    const pricePerUnitWater = parseFloat(document.getElementById('price_per_unit_water').value) || 0;
+    const price_room = parseFloat(document.getElementById('price_room').value) || 0;
+
+    const totalFire = (fireUnitAfter - fireUnitBefore) * pricePerUnitFire;
+    const totalWater = (waterUnitAfter - waterUnitBefore) * pricePerUnitWater;
+    const totalAmount = (totalFire + totalWater)+price_room;
+    
+
+    document.getElementById('total_fire').textContent = totalFire.toFixed(2);
+    document.getElementById('total_water').textContent = totalWater.toFixed(2);
+    document.getElementById('total_amount').textContent = totalAmount.toFixed(2);
+  }
+</script>
+
