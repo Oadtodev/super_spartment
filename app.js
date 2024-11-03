@@ -6,6 +6,7 @@ const Users=require('./models/users');
 const bodyParser=require('body-parser');
 const path=require('path');
 const multer=require('multer');
+const fs=require('fs');
 
 
 
@@ -45,6 +46,18 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 
 
+// Count unique rooms
+app.get('/api/users/countrooms', async (req, res) => {
+  try {
+    const users = await Users.find({}, 'room');
+    const roomCount = users.length;
+    res.json({ count: roomCount });
+  } catch (error) {
+    console.error('Error counting rooms:', error);
+    res.status(500).json({ error: 'Error counting rooms' });
+  }
+});
+
 // Routes
 app.get('/rent_cal', (req, res) => {
   res.render('rent_cal');
@@ -52,7 +65,7 @@ app.get('/rent_cal', (req, res) => {
 ////get table users
 app.get('/api/users', async (req, res) => {
   try {
-    const users = await Users.find();
+    const users = await Users.find().sort({ room: 1 }); // Sort by room number ascending
     if (!users) {
       return res.status(404).json({ error: 'No users found' });
     }
@@ -62,6 +75,12 @@ app.get('/api/users', async (req, res) => {
     console.error('Error fetching users:', error);
     res.status(500).json({ error: 'Error fetching users' });
   }
+});
+
+
+//blog home
+app.get('/bloghome',(req,res)=>{
+  res.render('bloghome');
 });
 ///////////////
 app.get('/contenttable',(req,res)=>{
@@ -187,6 +206,36 @@ app.post('/api/rent_cal', async (req, res) => {
   });
     // Log model instance before saving
     
+    // Delete rent calculation by ID
+    app.delete('/api/users/:id', async (req, res) => {
+      try {
+        const userId = req.params.id;
+        
+        // Find user to get image path before deletion
+        const user = await Users.findById(userId);
+        if (!user) {
+          return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Delete image file from uploads folder
+        if (user.image) {
+          const imagePath = path.join(__dirname, 'public', user.image);
+          if (fs.existsSync(imagePath)) {
+            fs.unlinkSync(imagePath);
+          }
+        }
+
+        // Delete user from database
+        await Users.findByIdAndDelete(userId);
+        
+        res.status(200).json({ message: 'User deleted successfully' });
+      } catch (error) {
+        console.error('Error deleting user:', error);
+        res.status(500).json({ error: 'Failed to delete user' });
+      }
+    });
+
+
 
 
     ///test

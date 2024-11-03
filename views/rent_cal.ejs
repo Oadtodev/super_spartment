@@ -1,26 +1,31 @@
 <%-include('../public/test.html')%>
 
-<div class="container mx-auto px-4 py-8">
-  <h1 class="text-3xl font-bold mb-8">Rent Calculation</h1>
+<div class="bg-[#141414] text-white min-h-screen">
+<div class="container mx-auto px-4 py-8 bg-[#0F0F0F] min-h-screen">
+  <h1 class="text-3xl font-bold mb-8 text-white">Rent Calculation</h1>
 
-  <form class="bg-white shadow-md rounded px-8  pb-8 mb-4" action="/api/rent_cal" method="POST">
+  <form class="bg-[#282828] shadow-lg rounded-xl px-8 pb-8 mb-4" action="/api/rent_cal" method="POST">
     <div class="mb-4">
-      <label class="block text-gray-700 text-sm font-bold mb-2" for="room">
+      <label class="block text-white text-sm font-medium mb-2" for="room">
         Room Number
       </label>
-      <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-             id="room" 
-             type="number" 
-             name="room" 
-             required>
+      <select class="bg-[#1F1F1F] border border-[#3D3D3D] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#FF0000]"
+              id="room"
+              name="room"
+              required>
+        <option value="">Select Room</option>
+        <% for(let i=1; i<=24; i++) { %>
+          <option value="<%= i %>">Room <%= i %></option>
+        <% } %>
+      </select>
     </div>
 
     <div class="grid grid-cols-2 gap-4">
       <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="fire_unitbefore">
+        <label class="block text-white text-sm font-medium mb-2" for="fire_unitbefore">
           Electricity Unit (Before)
         </label>
-        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+        <input class="bg-[#1F1F1F] border border-[#3D3D3D] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#FF0000]" 
                id="fire_unitbefore" 
                type="number" 
                name="fire_unitbefore"
@@ -28,10 +33,10 @@
       </div>
 
       <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="fire_unitafter">
+        <label class="block text-white text-sm font-medium mb-2" for="fire_unitafter">
           Electricity Unit (After)
         </label>
-        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+        <input class="bg-[#1F1F1F] border border-[#3D3D3D] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#FF0000]" 
                id="fire_unitafter" 
                type="number" 
                name="fire_unitafter"
@@ -39,10 +44,10 @@
       </div>
 
       <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="water_unitbefore">
+        <label class="block text-white text-sm font-medium mb-2" for="water_unitbefore">
           Water Unit (Before)
         </label>
-        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+        <input class="bg-[#1F1F1F] border border-[#3D3D3D] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#FF0000]" 
                id="water_unitbefore" 
                type="number" 
                name="water_unitbefore"
@@ -50,10 +55,10 @@
       </div>
 
       <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="water_unitafter">
+        <label class="block text-white text-sm font-medium mb-2" for="water_unitafter">
           Water Unit (After)
         </label>
-        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+        <input class="bg-[#1F1F1F] border border-[#3D3D3D] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#FF0000]" 
                id="water_unitafter" 
                type="number" 
                name="water_unitafter"
@@ -63,10 +68,10 @@
 
     <div class="grid grid-cols-2 gap-4">
       <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="price_per_unit_fire">
+        <label class="block text-white text-sm font-medium mb-2" for="price_per_unit_fire">
           Electricity Price per Unit
         </label>
-        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+        <input class="bg-[#1F1F1F] border border-[#3D3D3D] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#FF0000]" 
                id="price_per_unit_fire" 
                type="number" 
                name="price_per_unit_fire"
@@ -75,10 +80,10 @@
       </div>
 
       <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="price_per_unit_water">
+        <label class="block text-white text-sm font-medium mb-2" for="price_per_unit_water">
           Water Price per Unit
         </label>
-        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+        <input class="bg-[#1F1F1F] border border-[#3D3D3D] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#FF0000]" 
                id="price_per_unit_water" 
                type="number" 
                name="price_per_unit_water"
@@ -86,10 +91,10 @@
                required>
       </div>
       <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="price_room">
-          price_room
+        <label class="block text-white text-sm font-medium mb-2" for="price_room">
+          Room Price
         </label>
-        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+        <input class="bg-[#1F1F1F] border border-[#3D3D3D] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#FF0000]" 
                id="price_room" 
                type="number" 
                name="price_room"
@@ -100,31 +105,111 @@
 
     <div class="grid grid-cols-3 gap-4 mb-6">
       <div class="text-right">
-        <label class="block text-gray-700 text-sm font-bold mb-2">Total Electricity:</label>
-        <span id="total_fire" class="text-xl font-bold">0.00</span>
+        <label class="block text-white text-sm font-medium mb-2">Total Electricity:</label>
+        <span id="total_fire" class="text-xl font-bold text-white">0.00</span>
       </div>
       <div class="text-right">
-        <label class="block text-gray-700 text-sm font-bold mb-2">Total Water:</label>
-        <span id="total_water" class="text-xl font-bold">0.00</span>
+        <label class="block text-white text-sm font-medium mb-2">Total Water:</label>
+        <span id="total_water" class="text-xl font-bold text-white">0.00</span>
       </div>
       
       <div class="text-right">
-        <label class="block text-gray-700 text-sm font-bold mb-2">Total Amount:</label>
-        <span id="total_amount" class="text-xl font-bold">0.00</span>
+        <label class="block text-white text-sm font-medium mb-2">Total Amount:</label>
+        <span id="total_amount" class="text-xl font-bold text-[#FF0000]">0.00</span>
       </div>
     </div>
 
     <div class="flex items-center justify-between">
-      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
+      <button class="bg-[#FF0000] hover:bg-[#CC0000] text-white font-medium py-2 px-6 rounded-full focus:outline-none focus:ring-2 focus:ring-[#FF0000] focus:ring-offset-2 focus:ring-offset-[#282828]" 
               type="submit">
         Calculate and Save
       </button>
-      <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
+      <button class="bg-[#282828] hover:bg-[#3D3D3D] text-white font-medium py-2 px-6 rounded-full border border-[#3D3D3D] focus:outline-none focus:ring-2 focus:ring-[#3D3D3D]" 
               type="reset">
         Reset
       </button>
+      <button type="button" 
+              onclick="showSummaryModal()"
+              class="bg-[#282828] hover:bg-[#3D3D3D] text-white font-medium py-2 px-6 rounded-full border border-[#3D3D3D] focus:outline-none focus:ring-2 focus:ring-[#3D3D3D]">
+        Show Summary
+      </button>
+
+      <!-- Summary Modal -->
+      <div id="summaryModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
+        <div class="bg-[#1F1F1F] p-6 rounded-lg w-96">
+          <h2 class="text-xl font-bold text-white mb-4">Billing Summary</h2>
+          
+          <div class="space-y-3">
+            <div class="flex justify-between">
+              <span class="text-gray-300">Room:</span>
+              <span id="summary_room" class="text-white"></span>
+            </div>
+            
+            <div class="flex justify-between">
+              <span class="text-gray-300">Electricity Usage:</span>
+              <span id="summary_electricity" class="text-white"></span>
+            </div>
+
+            <div class="flex justify-between">
+              <span class="text-gray-300">Water Usage:</span>
+              <span id="summary_water" class="text-white"></span>
+            </div>
+
+            <div class="flex justify-between">
+              <span class="text-gray-300">Room Price:</span>
+              <span id="summary_room_price" class="text-white"></span>
+            </div>
+
+            <div class="border-t border-[#3D3D3D] pt-3">
+              <div class="flex justify-between font-bold">
+                <span class="text-gray-300">Total Amount:</span>
+                <span id="summary_total" class="text-[#FF0000]"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-6 flex justify-end">
+            <button onclick="closeSummaryModal()" 
+                    class="bg-[#FF0000] hover:bg-[#CC0000] text-white font-medium py-2 px-4 rounded-full">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        function showSummaryModal() {
+          const modal = document.getElementById('summaryModal');
+          
+          // Get values
+          const room = document.getElementById('room').value;
+          const fireUnitBefore = document.getElementById('fire_unitbefore').value;
+          const fireUnitAfter = document.getElementById('fire_unitafter').value;
+          const waterUnitBefore = document.getElementById('water_unitbefore').value;
+          const waterUnitAfter = document.getElementById('water_unitafter').value;
+          const roomPrice = document.getElementById('price_room').value;
+          const totalAmount = document.getElementById('total_amount').textContent;
+          
+          // Update modal content
+          document.getElementById('summary_room').textContent = room;
+          document.getElementById('summary_electricity').textContent = 
+            `${fireUnitBefore} → ${fireUnitAfter} (${fireUnitAfter - fireUnitBefore} units)`;
+          document.getElementById('summary_water').textContent = 
+            `${waterUnitBefore} → ${waterUnitAfter} (${waterUnitAfter - waterUnitBefore} units)`;
+          document.getElementById('summary_room_price').textContent = `${roomPrice} ฿`;
+          document.getElementById('summary_total').textContent = `${totalAmount} ฿`;
+          
+          modal.classList.remove('hidden');
+        }
+
+        function closeSummaryModal() {
+          document.getElementById('summaryModal').classList.add('hidden');
+        }
+      </script>
     </div>
   </form>
+</div>
+
 </div>
 
 <script>
@@ -149,10 +234,8 @@
     const totalWater = (waterUnitAfter - waterUnitBefore) * pricePerUnitWater;
     const totalAmount = (totalFire + totalWater)+price_room;
     
-
     document.getElementById('total_fire').textContent = totalFire.toFixed(2);
     document.getElementById('total_water').textContent = totalWater.toFixed(2);
     document.getElementById('total_amount').textContent = totalAmount.toFixed(2);
   }
 </script>
-

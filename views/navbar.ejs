@@ -1,28 +1,56 @@
-<nav class="bg-amber-300 shadow-lg ">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-evenly h-16 ml-40">
-            <div class="flex items-center">
-                <span class="text-2xl font-semibold text-gray-800 text-center ">Manage Information Customer</span>
-            </div>
-            <div class="flex items-center">
-                <button class="p-2 rounded-full hover:bg-gray-100 ">
-                    <svg class="h-6 w-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
-                    </svg>
-                </button>
-                <div class="ml-3 relative ">
-                    <img class="h-10 w-10 object-cover rounded-full" src="/oad.jpg" alt="profile">
-                    
-                  
-                  </div>
-                <div class="ml-4 flex items-center space-x-4 ">
-                    <a href="/" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
-                    <a href="/rent_cal" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">ฺBilling</a>
-                    <a href="/" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Manage_customer</a>
-                    <a href="/settings" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Settings</a>
-                    <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium">Logout</button>
-                </div>
-            </div>
+<nav class="bg-black">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <div class="flex-shrink-0">
+        <a href="/" class="text-red-600 font-bold text-2xl">Dashboard List </a>
+      </div>
+
+      <!-- Desktop Menu -->
+      <div class="hidden md:block">
+        <div class="ml-10 flex items-baseline space-x-4">
+          <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+          <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Customer</a>
+          <a href="/rent_cal" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">billing</a>
+          <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
+          <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">My List</a>
         </div>
+      </div>
+
+      <!-- Mobile menu button -->
+      <div class="md:hidden">
+        <button type="button" class="mobile-menu-button text-gray-400 hover:text-white focus:outline-none" aria-label="Toggle menu">
+          <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+            <path class="open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            <path class="close hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
     </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu hidden md:hidden">
+    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+      <a href="#" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
+      <a href="#" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">TV Shows</a>
+      <a href="#" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Movies</a>
+      <a href="#" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">New & Popular</a>
+      <a href="#" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">My List</a>
+    </div>
+  </div>
 </nav>
+
+<script>
+  // Mobile menu toggle
+  const mobileMenuButton = document.querySelector('.mobile-menu-button');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  const openIcon = document.querySelector('.open');
+  const closeIcon = document.querySelector('.close');
+
+  mobileMenuButton.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+    openIcon.classList.toggle('hidden');
+    closeIcon.classList.toggle('hidden');
+  });
+</script>

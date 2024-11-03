@@ -1,20 +1,40 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-
-
-<div class="container mx-auto px-4 ">
-  <h1 class="text-2xl  mb-6">Customer Data</h1>
-  <div class="mb-6">
+<div class="container mx-auto px-4">
+  <h1 class="text-2xl mb-6">Customer Data</h1>
+  
+  <div class="flex justify-between items-center mb-6">
     <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded flex items-center">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
         <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
       </svg>
       Add New User
     </button>
+
+    <div class="flex items-center space-x-4">
+      <div class="relative">
+        <input type="text" 
+               id="searchInput"
+               placeholder="Search..."
+               class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+               onkeyup="filterTable()">
+        <svg class="w-5 h-5 absolute right-3 top-2.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+      </div>
+
+      <select id="rowsPerPage" 
+              class="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onchange="changeRowsPerPage()">
+        <option value="10">10 rows</option>
+        <option value="15">15 rows</option>
+        <option value="20">20 rows</option>
+      </select>
+    </div>
   </div>
 
   <div class="overflow-x-auto">
-    <table class="min-w-full bg-white border border-gray-200">
+    <table class="min-w-full bg-gray-900 border border-blue-500 rounded-lg shadow-lg">
       <thead>
         <tr>
           <th class="py-2 px-4 border-b text-left font-semibold text-gray-700">Image</th>
@@ -27,18 +47,22 @@
         </tr>
       </thead>
       <tbody id="dataTableBody">
-        <!-- Example row -->
-         
-       
-        <tr>
-   
-        </tr>
-        
+        <!-- Table rows will be populated dynamically -->
       </tbody>
     </table>
+
+    <div class="flex justify-between items-center mt-4">
+      <div class="text-sm text-gray-700">
+        Showing <span id="startRow">1</span> to <span id="endRow">10</span> of <span id="totalRows">0</span> entries
+      </div>
+      <div class="flex space-x-2">
+        <button onclick="previousPage()" class="px-3 py-1 border rounded hover:bg-gray-100">&laquo; Previous</button>
+        <div id="pagination" class="flex space-x-1"></div>
+        <button onclick="nextPage()" class="px-3 py-1 border rounded hover:bg-gray-100">Next &raquo;</button>
+      </div>
+    </div>
   </div>
 </div>
-
 
 <!-- Modal Add -->
 <div id="addModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden overflow-y-auto h-full w-full">
@@ -129,8 +153,96 @@
   </div>
 </div>
 
+<!-- modal edit -->
+<!-- Edit User Modal -->
+<div id="editModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
+  <div class="bg-white p-8 rounded-lg w-full max-w-md">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-gray-900">Edit User</h2>
+      <button onclick="closeEditModal()" class="text-gray-500 hover:text-gray-700">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <form id="editUserForm" class="space-y-4">
+      <input type="hidden" id="editUserId" name="id">
+      
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="editName">
+          Name
+        </label>
+        <input type="text" 
+               id="editName" 
+               name="name"
+               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+               required>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="editCitizenid">
+          Citizen ID
+        </label>
+        <input type="text" 
+               id="editCitizenid" 
+               name="citizenid"
+               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+               required>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="editTel">
+          Phone Number
+        </label>
+        <input type="tel" 
+               id="editTel" 
+               name="tel"
+               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+               required>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="editCarinfo">
+          Car Information
+        </label>
+        <input type="text" 
+               id="editCarinfo" 
+               name="carinfo"
+               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+               required>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="editImage">
+          Update Image
+        </label>
+        <input type="file" 
+               id="editImage" 
+               name="image"
+               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+      </div>
+
+      <div class="flex items-center justify-between mt-6">
+        <button type="submit" 
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+          Update
+        </button>
+        <button type="button"
+                onclick="closeEditModal()"
+                class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
 
 <script>
+let currentPage = 1;
+let rowsPerPage = 10;
+let allUsers = [];
+
 // Show modal when Add New User button is clicked
 document.querySelector('.bg-green-500').addEventListener('click', () => {
   document.getElementById('addModal').classList.remove('hidden');
@@ -157,7 +269,7 @@ document.getElementById('addUserForm').addEventListener('submit', async (e) => {
     if(response.status === 201) {
       alert('User added successfully!');
       closeAddModal();
-      location.reload(); // Refresh the page to show new data
+      window.location.href = '/'; // Refresh the data without page reload
     }
   } catch (error) {
     console.error('Error:', error);
@@ -165,34 +277,108 @@ document.getElementById('addUserForm').addEventListener('submit', async (e) => {
   }
 });
 
+function filterTable() {
+  const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+  const filteredUsers = allUsers.filter(user => 
+    user.name.toLowerCase().includes(searchTerm) ||
+    user.citizenid.toLowerCase().includes(searchTerm) ||
+    user.tel.toLowerCase().includes(searchTerm) ||
+    user.room.toString().includes(searchTerm)
+  );
+  displayUsers(filteredUsers);
+}
+
+function changeRowsPerPage() {
+  rowsPerPage = parseInt(document.getElementById('rowsPerPage').value);
+  currentPage = 1;
+  displayUsers(allUsers);
+}
+
+function displayUsers(users) {
+  const totalPages = Math.ceil(users.length / rowsPerPage);
+  const start = (currentPage - 1) * rowsPerPage;
+  const end = Math.min(start + rowsPerPage, users.length);
+  const paginatedUsers = users.slice(start, end);
+  
+  const tableBody = document.getElementById('dataTableBody');
+  tableBody.innerHTML = '';
+
+  paginatedUsers.forEach(user => {
+    const row = `
+      <tr>
+        <td class="py-2 px-4 border-b">
+          <img style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;" src="${user.image}" alt="User Image" class="w-16 h-16 object-cover rounded-md">
+        </td>
+        <td class="py-2 px-4 border-b">${user.room}</td>
+        <td class="py-2 px-4 border-b">${user.name}</td>
+        <td class="py-2 px-4 border-b">${user.citizenid}</td>
+        <td class="py-2 px-4 border-b">${user.tel}</td>
+        <td class="py-2 px-4 border-b">${user.carinfo}</td>
+        <td class="py-2 px-4 border-b">
+          <button onclick="editUser('${user._id}')" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg shadow-lg hover:from-blue-600 hover:to-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none transition-all duration-300 ease-in-out">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+            </svg>
+            Edit
+          </button>
+          <button onclick="deleteUser('${user._id}')" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-gradient-to-r from-red-500 to-red-600 rounded-lg shadow-lg hover:from-red-600 hover:to-red-700 focus:ring-4 focus:ring-red-300 focus:outline-none transition-all duration-300 ease-in-out">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+            </svg>
+            Delete
+          </button>
+        </td>
+      </tr>
+    `;
+    tableBody.innerHTML += row;
+  });
+
+  // Update pagination info
+  document.getElementById('startRow').textContent = start + 1;
+  document.getElementById('endRow').textContent = end;
+  document.getElementById('totalRows').textContent = users.length;
+
+  // Update pagination buttons
+  updatePagination(totalPages);
+}
+
+function updatePagination(totalPages) {
+  const pagination = document.getElementById('pagination');
+  pagination.innerHTML = '';
+
+  for (let i = 1; i <= totalPages; i++) {
+    const button = document.createElement('button');
+    button.textContent = i;
+    button.className = `px-3 py-1 border rounded ${currentPage === i ? 'bg-blue-500 text-white' : 'hover:bg-gray-100'}`;
+    button.onclick = () => {
+      currentPage = i;
+      displayUsers(allUsers);
+    };
+    pagination.appendChild(button);
+  }
+}
+
+function previousPage() {
+  if (currentPage > 1) {
+    currentPage--;
+    displayUsers(allUsers);
+  }
+}
+
+function nextPage() {
+  const totalPages = Math.ceil(allUsers.length / rowsPerPage);
+  if (currentPage < totalPages) {
+    currentPage++;
+    displayUsers(allUsers);
+  }
+}
 
 // Get data from API and populate table
 const getData = async () => {
   try {
     const response = await axios.get('/api/users');
-    const users = response.data;
-    const tableBody = document.getElementById('dataTableBody');
-    tableBody.innerHTML = ''; // Clear existing rows
-
-    users.forEach(user => {
-      const row = `
-        <tr>
-          <td class="py-2 px-4 border-b">
-            <img style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;" src="${user.image}" alt="User Image" class="w-16 h-16 object-cover rounded-md">
-          </td>
-          <td class="py-2 px-4 border-b">${user.room}</td>
-          <td class="py-2 px-4 border-b">${user.name}</td>
-          <td class="py-2 px-4 border-b">${user.citizenid}</td>
-          <td class="py-2 px-4 border-b">${user.tel}</td>
-          <td class="py-2 px-4 border-b">${user.carinfo}</td>
-          <td class="py-2 px-4 border-b">
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded">Edit</button>
-            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded">Delete</button>
-          </td>
-        </tr>
-      `;
-      tableBody.innerHTML += row;
-    });
+    allUsers = response.data;
+    displayUsers(allUsers);
   } catch (error) {
     console.error('Error fetching data:', error);
   }
@@ -201,6 +387,20 @@ const getData = async () => {
 // Load data when page loads
 document.addEventListener('DOMContentLoaded', getData);
 
+// Delete user
+async function deleteUser(userId) {
+  if (confirm('Are you sure you want to delete this user?')) {
+    try {
+      const response = await axios.delete(`/api/users/${userId}`);
+      if (response.status === 200) {
+        alert('User deleted successfully!');
+        window.location.href = '/';
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Failed to delete user. Please try again.');
+    }
+  }
+}
+
 </script>
-
-
