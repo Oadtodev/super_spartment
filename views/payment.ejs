@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Space Mono', monospace;
+            background-color: #020A13;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-[#020A13] to-[#041526]">
+    <%- include('navbar') %>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-[#4BB1E7] mb-4">Payment Portal</h1>
+            <p class="text-gray-400">Secure and convenient payment options</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Bank Account Details -->
+            <div class="bg-[#041526] p-8 rounded-2xl border border-[#4BB1E7]/20 backdrop-blur-lg">
+                <h2 class="text-2xl font-bold text-[#4BB1E7] mb-6">Bank Transfer</h2>
+                <div class="space-y-4">
+                    <div class="bg-[#020A13] p-4 rounded-lg border border-[#4BB1E7]/10">
+                        <p class="text-gray-400 text-sm">Bank Name</p>
+                        <p class="text-white font-bold">Kasikorn Bank</p>
+                    </div>
+                    <div class="bg-[#020A13] p-4 rounded-lg border border-[#4BB1E7]/10">
+                        <p class="text-gray-400 text-sm">Account Number</p>
+                        <p class="text-white font-bold">XXX-X-XX234-X</p>
+                    </div>
+                    <div class="bg-[#020A13] p-4 rounded-lg border border-[#4BB1E7]/10">
+                        <p class="text-gray-400 text-sm">Account Name</p>
+                        <p class="text-white font-bold">Singwijarn Apartment </p>
+                    </div>
+                    <div>
+                    <button onclick="document.getElementById('slipUpload').click()" class="w-full bg-[#E50914] hover:bg-[#B81D24] text-white font-bold py-3 px-6 rounded-sm transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-red-500/30">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+                        </svg>
+                        Upload Payment Slip
+                    </button>
+                    <input type="file" 
+                           id="slipUpload" 
+                           accept="image/*"
+                           class="hidden"
+                           onchange="handleSlipUpload(event)">
+                    <p id="uploadStatus" class="mt-2 text-sm text-center text-gray-400"></p>
+
+                    <script>
+                        function handleSlipUpload(event) {
+                            const file = event.target.files[0];
+                            const status = document.getElementById('uploadStatus');
+                            
+                            if (file) {
+                                status.textContent = `Selected file: ${file.name}`;
+                                status.classList.remove('text-gray-400');
+                                status.classList.add('text-[#4BB1E7]');
+                            }
+                        }
+                    </script>
+                    </div>
+                </div>
+            </div>
+            
+
+            <!-- PromptPay QR -->
+            <div class="bg-[#041526] p-8 rounded-2xl border border-[#4BB1E7]/20 backdrop-blur-lg">
+                <h2 class="text-2xl font-bold text-[#4BB1E7] mb-6">PromptPay QR</h2>
+                <div class="flex flex-col items-center">
+                    <div class="bg-white p-4 rounded-lg mb-4">
+                        <!-- Replace with actual QR code -->
+                        <img src="https://promptpay.io/0891234567/1000.png" alt="PromptPay QR" class="w-48 h-48">
+                    </div>
+                    <p class="text-gray-400 text-sm">Scan to pay via PromptPay</p>
+                    <p class="text-white font-bold mt-2">ID: 089-123-4567</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Instructions -->
+        <div class="mt-12 bg-[#041526] p-8 rounded-2xl border border-[#4BB1E7]/20 backdrop-blur-lg">
+            <h2 class="text-2xl font-bold text-[#4BB1E7] mb-6">Payment Instructions</h2>
+            <div class="space-y-4 text-gray-300">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 w-8 h-8 bg-[#4BB1E7]/20 rounded-full flex items-center justify-center text-[#4BB1E7] mr-4">1</div>
+                    <p>Choose your preferred payment method (Bank Transfer or PromptPay)</p>
+                </div>
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 w-8 h-8 bg-[#4BB1E7]/20 rounded-full flex items-center justify-center text-[#4BB1E7] mr-4">2</div>
+                    <p>Complete the payment using the provided details</p>
+                </div>
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 w-8 h-8 bg-[#4BB1E7]/20 rounded-full flex items-center justify-center text-[#4BB1E7] mr-4">3</div>
+                    <p>Save your payment confirmation for reference</p>
+                </div>
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 w-8 h-8 bg-[#4BB1E7]/20 rounded-full flex items-center justify-center text-[#4BB1E7] mr-4">4</div>
+                    <p>Contact support if you need assistance</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
