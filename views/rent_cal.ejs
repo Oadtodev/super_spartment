@@ -1,4 +1,4 @@
-<%-include('../public/test.html')%>
+<<%-include('../public/test.html')%>>
 <%-include('navbar')%>
 
 
@@ -26,7 +26,7 @@
     <div class="grid grid-cols-2 gap-4">
       <div class="mb-4">
         <label class="block text-[#E3B53C] text-sm font-medium mb-2" for="fire_unitbefore">
-          Electricity Unit (Before)
+          Elec_Unit(Before)
         </label>
         <input class="bg-[#0A0F14] border border-[#E3B53C] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#C43E1C]" 
                id="fire_unitbefore" 
@@ -37,7 +37,7 @@
 
       <div class="mb-4">
         <label class="block text-[#E3B53C] text-sm font-medium mb-2" for="fire_unitafter">
-          Electricity Unit (After)
+          Elec_Unit(After)
         </label>
         <input class="bg-[#0A0F14] border border-[#E3B53C] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#C43E1C]" 
                id="fire_unitafter" 
@@ -48,7 +48,7 @@
 
       <div class="mb-4">
         <label class="block text-[#E3B53C] text-sm font-medium mb-2" for="water_unitbefore">
-          Water Unit (Before)
+          Water_Unit(Before)
         </label>
         <input class="bg-[#0A0F14] border border-[#E3B53C] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#C43E1C]" 
                id="water_unitbefore" 
@@ -72,7 +72,7 @@
     <div class="grid grid-cols-2 gap-4">
       <div class="mb-4">
         <label class="block text-[#E3B53C] text-sm font-medium mb-2" for="price_per_unit_fire">
-          Electricity Price per Unit
+          Elec_Price_per_Unit
         </label>
         <input class="bg-[#0A0F14] border border-[#E3B53C] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#C43E1C]" 
                id="price_per_unit_fire" 
@@ -84,7 +84,7 @@
 
       <div class="mb-4">
         <label class="block text-[#E3B53C] text-sm font-medium mb-2" for="price_per_unit_water">
-          Water Price per Unit
+          Water_price_per_Unit
         </label>
         <input class="bg-[#0A0F14] border border-[#E3B53C] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#C43E1C]" 
                id="price_per_unit_water" 
@@ -106,18 +106,18 @@
       </div>
     </div>
 
-    <div class="grid grid-cols-3 gap-4 mb-6">
-      <div class="text-right">
-        <label class="block text-[#E3B53C] text-sm font-medium mb-2">Total Electricity:</label>
+    <div class="grid grid-cols-3 gap-4 mb-6 justify-items-end ">
+      <div class="text-center">
+        <label class="block text-[#E3B53C] text-sm font-medium mb-2">Total_Elec:</label>
         <span id="total_fire" class="text-xl font-bold text-white">0.00</span>
       </div>
-      <div class="text-right">
-        <label class="block text-[#E3B53C] text-sm font-medium mb-2">Total Water:</label>
+      <div class="text-center">
+        <label class="block text-[#E3B53C] text-sm font-medium mb-2">Total_Water:</label>
         <span id="total_water" class="text-xl font-bold text-white">0.00</span>
       </div>
       
-      <div class="text-right">
-        <label class="block text-[#E3B53C] text-sm font-medium mb-2">Total Amount:</label>
+      <div class="text-center">
+        <label class="block text-[#E3B53C] text-sm font-medium mb-2">Total:</label>
         <span id="total_amount" class="text-xl font-bold text-[#C43E1C]">0.00</span>
       </div>
     </div>

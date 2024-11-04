@@ -34,15 +34,6 @@ app.use((req, res, next) => {
   console.log(`${req.method} ${req.url} ${new Date().toLocaleString()}`);
   next();
 })
-app.use((req, res, next) => {
-  const ip = req.ip || req.connection.remoteAddress;
-  const method = req.method;
-  const url = req.originalUrl;
-  const timestamp = new Date().toISOString();
-  
-  console.log(`[${timestamp}] ${method} ${url} - IP: ${ip}`);
-  next();
-});
 
 
 // Set up multer for file uploads
