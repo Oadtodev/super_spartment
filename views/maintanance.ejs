@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- DataTables CSS & JS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <style>
+      select option {
+        text-align: center;
+        background-color: black;
+        color: white;
+      }
+    </style>
+</head>
+<body>
+
+<div>
+    <%-include('navbar')%>
+    <h1>Maintanance</h1>
+<div class="bg-[#0A0F14] min-h-screen p-8">
+  <div class="max-w-7xl mx-auto">
+    <h1 class="text-3xl font-bold text-[#4BB1E7] mb-8">Maintenance Reports</h1>
+
+    <!-- Report Form -->
+    <div class="bg-[#141B21] rounded-lg shadow-lg p-6 mb-8">
+      <h2 class="text-xl font-semibold text-[#4BB1E7] mb-4">Submit New Report</h2>
+      <form class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input type="number" name="room" placeholder="Room Number" class="w-full bg-[#0A0F14] border border-gray-600 rounded-md p-2 text-gray-300 focus:outline-none focus:border-[#4BB1E7]">
+        </div>
+
+        <div>
+          <label class="block text-gray-300 mb-2">Description</label>
+          <textarea 
+            class="w-full bg-[#0A0F14] border border-gray-600 rounded-md p-2 text-gray-300 focus:outline-none focus:border-[#4BB1E7] h-32"
+            placeholder="แจ้งรายละเอียดปัญหา"
+            name="description"></textarea>
+        </div>
+
+        <button type="submit" class="bg-[#4BB1E7] text-white px-6 py-2 rounded-md hover:bg-[#3991c7] transition-colors">
+          Submit Report
+        </button>
+      </form>
+    </div>
+
+    <!-- Reports List -->
+    <div class="bg-[#141B21] rounded-lg shadow-lg p-6">
+      <h2 class="text-xl font-semibold text-[#4BB1E7] mb-4"> Reports</h2>
+      <div class="overflow-x-auto ">
+        <table id="maintenanceTable" class="w-full " >
+          <thead>
+            <tr class="text-left border-b border-gray-700">
+              <th class="pb-3 text-white ">Room</th>
+              <th class="pb-3 text-white">Description</th>
+              <th class="pb-3 text-white">Status</th>
+              <th class="pb-3 text-white">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="text-white">
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+// Get form and add submit handler
+const form = document.querySelector('form');
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const room = document.querySelector('input[name="room"]').value;
+  const description = document.querySelector('textarea[name="description"]').value;
+
+  try {
+    const response = await axios.post('/api/maintanance', {
+      room: parseInt(room),
+      description: description
+    });
+    
+    if (response.status === 200) {
+      alert('Maintenance report submitted successfully');
+      form.reset();
+      fetchMaintananceReports();
+    }
+  } catch (error) {
+    console.error('Error submitting report:', error);
+    alert('Failed to submit maintenance report');
+  }
+});
+
+// Function to delete maintenance report
+async function deleteReport(reportId) {
+  if (confirm('คุณแน่ใจหรือไม่ที่จะลบรายการนี้?')) {
+    try {
+      const response = await axios.delete(`/api/maintanance/${reportId}`);
+      if (response.status === 200) {
+        fetchMaintananceReports();
+      }
+    } catch (error) {
+      console.error('Error deleting report:', error);
+      alert('ไม่สามารถลบรายการได้');
+    }
+  }
+}
+
+// Function to update maintenance status
+async function updateStatus(selectElement, reportId) {
+  try {
+    const newStatus = selectElement.value;
+    const response = await axios.put(`/api/maintanance/${reportId}`, {
+      status: newStatus
+    });
+
+    if (response.status === 200) {
+      fetchMaintananceReports();
+    }
+  } catch (error) {
+    console.error('Error updating status:', error);
+    alert('Failed to update status');
+    selectElement.value = selectElement.getAttribute('value');
+  }
+}
+
+// Initialize DataTable
+let maintenanceTable;
+
+// Function to fetch and display maintenance reports
+async function fetchMaintananceReports() {
+  try {
+    const response = await axios.get('/api/maintanance');
+    const reports = response.data;
+    
+    // Destroy existing DataTable if it exists
+    if (maintenanceTable) {
+      maintenanceTable.destroy();
+    }
+
+    const tbody = document.querySelector('#maintenanceTable tbody');
+    tbody.innerHTML = '';
+    
+    reports.forEach(report => {
+      const row = `
+        <tr class="border-b border-slate-800 bg-gradient-to-r from-slate-900 to-slate-800 hover:from-slate-800 hover:to-slate-700 transition-all duration-300 rounded-[5px]">
+          <td class="py-3">ห้อง ${report.room}</td>
+          <td>${report.description}</td>
+          <td>
+            <select class="px-4 py-2 text-black rounded-lg text-sm font-medium shadow-lg transition-all duration-300 ease-in-out focus:ring-2 focus:outline-none cursor-pointer
+            ${report.status === 'รอดำเนินการ' ? 'bg-gradient-to-r from-orange-500 to-orange-600' : ''}
+            ${report.status === 'กำลังดำเนินการ' ? 'bg-gradient-to-r from-blue-500 to-blue-600' : ''}
+            ${report.status === 'เสร็จสิ้น' ? 'bg-gradient-to-r from-green-500 to-green-600' : ''}"
+            onchange="updateStatus(this, '${report._id}')" value="${report.status}">
+              <option value="รอดำเนินการ" ${report.status === 'รอดำเนินการ' ? 'selected' : ''}>รอดำเนินการ</option>
+              <option value="กำลังดำเนินการ" ${report.status === 'กำลังดำเนินการ' ? 'selected' : ''}>กำลังดำเนินการ</option>
+              <option value="เสร็จสิ้น" ${report.status === 'เสร็จสิ้น' ? 'selected' : ''}>เสร็จสิ้น</option>
+            </select>
+          </td>
+          <td>
+            <button onclick="deleteReport('${report._id}')" class="px-2 py-1 bg-red-600 hover:bg-red-700 text-white rounded text-sm ml-2 border-2 border-red-400 shadow-md hover:shadow-red-500/50 transition-all duration-300">ลบ</button>
+          </td>
+        </tr>
+      `;
+      tbody.innerHTML += row;
+    });
+
+    // Initialize new DataTable
+    maintenanceTable = $('#maintenanceTable').DataTable({
+      pageLength: 5,
+      lengthMenu: [10, 15, 20],
+      language: {
+        lengthMenu: "<span class='text-[#fff] bg'>แสดง _MENU_ แถวต่อหน้า</span>",
+        zeroRecords: "ไม่พบข้อมูล",
+        info: "<span class='text-[#4BB1E7]'>แสดงหน้า _PAGE_ จาก _PAGES_</span>",
+        infoEmpty: "ไม่มีข้อมูล",
+        infoFiltered: "(กรองจากทั้งหมด _MAX_ รายการ)",
+        search: "<span class='text-[#4BB1E7]'>ค้นหา:</span>",
+        paginate: {
+          first: "<span class='text-[#4BB1E7]'>หน้าแรก</span>",
+          last: "<span class='text-[#4BB1E7]'>หน้าสุดท้าย</span>",
+          next: "<span class='text-[#4BB1E7]'>ถัดไป</span>",
+          previous: "<span class='text-[#4BB1E7]'>ก่อนหน้า</span>"
+        }
+      }
+    });
+
+  } catch (error) {
+    console.error('Error fetching maintenance reports:', error);
+  }
+}
+
+// Fetch reports when page loads
+$(document).ready(function() {
+  fetchMaintananceReports();
+});
+
+</script>
+</body>
+</html>

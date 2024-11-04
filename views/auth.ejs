@@ -1,0 +1,91 @@
+<div id="passwordModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+  <div class="bg-white p-8 rounded-lg shadow-xl w-96">
+    <h2 class="text-2xl font-bold text-gray-900 mb-4">Password Required</h2>
+    <p class="text-gray-600 mb-6">Please enter password to access this page</p>
+    
+    <div class="mb-4">
+      <input type="password" 
+             id="passwordInput"
+             class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+             placeholder="Enter password">
+    </div>
+
+    <div class="flex justify-between">
+      <button onclick="checkPassword()" 
+              class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md transition duration-200">
+        Submit
+      </button>
+      <button onclick="window.location.href='/'" 
+              class="bg-gray-500 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-md transition duration-200">
+        Cancel
+      </button>
+    </div>
+
+    <p id="attemptsText" class="mt-4 text-sm text-gray-500">3 attempts remaining</p>
+  </div>
+</div>
+
+<script>
+window.onload = function() {
+  const correctPassword = "102030";
+  let attempts = 3;
+  const modal = document.getElementById('passwordModal');
+  const attemptsText = document.getElementById('attemptsText');
+  
+  window.checkPassword = function() {
+    const password = document.getElementById('passwordInput').value;
+    
+    if (password === correctPassword) {
+      modal.classList.add('hidden');
+      Swal.fire({
+        icon: 'success',
+        title: 'Access Granted',
+        text: 'Welcome to the system!',
+        timer: 1500,
+        showConfirmButton: false,
+        customClass: {
+          popup: 'rounded-lg',
+          title: 'text-xl font-bold',
+          content: 'text-gray-600'
+        }
+      });
+      return;
+    } else {
+        
+
+      attempts--;
+      attemptsText.textContent = `${attempts} total login attempts`;
+        if(attempts<=0){
+            window.location.href = "/";
+        }
+      if (attempts > 0) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Incorrect Password',
+          text: 'Please try again',
+          customClass: {
+            popup: 'rounded-lg',
+            title: 'text-xl font-bold text-red-600',
+            content: 'text-gray-600'
+          }
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Access Denied',
+          text: 'Redirecting to home page...',
+          timer: 2000,
+          showConfirmButton: false,
+          customClass: {
+            popup: 'rounded-lg',
+            title: 'text-xl font-bold text-red-600',
+            content: 'text-gray-600'
+          }
+        }).then(() => {
+          window.location.href = "/";
+        });
+      }
+    }
+  }
+}
+</script>

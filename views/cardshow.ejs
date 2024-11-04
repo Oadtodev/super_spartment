@@ -12,7 +12,7 @@
                         </div>
                         <div class="ml-5 w-0 flex-1">
                             <dl>
-                                <dt class="text-sm font-medium text-blue-200 truncate">จำนวนห้องทั้งหมด</dt>
+                                <dt class="text-sm font-medium text-blue-200 truncate">Total Rooms</dt>
                                 <dd class="text-2xl font-bold text-white" id="totalRooms"></dd>
                             </dl>
                         </div>
@@ -30,8 +30,8 @@
                         </div>
                         <div class="ml-5 w-0 flex-1">
                             <dl>
-                                <dt class="text-sm font-medium text-blue-200 truncate">Shield Integrity</dt>
-                                <dd class="text-2xl font-bold text-white">98.7%</dd>
+                                <dt class="text-sm font-medium text-blue-200 truncate">Total Live Percent</dt>
+                                <dd class="text-2xl font-bold text-white "id="totalpercent">98.7%</dd>
                             </dl>
                         </div>
                     </div>
@@ -84,6 +84,8 @@ async function updateRoomCount() {
   try {
     const response = await axios.get('/api/users/countrooms');
     const totalRooms = document.getElementById('totalRooms');
+    const totalpercent = document.getElementById('totalpercent');
+    totalpercent.textContent = ((response.data.count/24)*100).toFixed(2) + '%';
     totalRooms.textContent = response.data.count;
     // Remove loading text by directly setting the count
     

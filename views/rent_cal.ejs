@@ -1,15 +1,17 @@
 <%-include('../public/test.html')%>
+<%-include('navbar')%>
 
-<div class="bg-[#141414] text-white min-h-screen">
-<div class="container mx-auto px-4 py-8 bg-[#0F0F0F] min-h-screen">
-  <h1 class="text-3xl font-bold mb-8 text-white">Rent Calculation</h1>
 
-  <form class="bg-[#282828] shadow-lg rounded-xl px-8 pb-8 mb-4" action="/api/rent_cal" method="POST">
+<div class="bg-[#0A0F14] text-white min-h-screen">
+<div class="container mx-auto px-4 py-8 bg-[#141B21] min-h-screen">
+  <h1 class="text-3xl font-bold mb-8 text-[#E3B53C]">Rent Calculation</h1>
+
+  <form class="bg-[#1C2833] shadow-lg rounded-xl px-8 pb-8 mb-4" action="/api/rent_cal" method="POST">
     <div class="mb-4">
-      <label class="block text-white text-sm font-medium mb-2" for="room">
+      <label class="block text-[#E3B53C] text-sm font-medium mb-2" for="room">
         Room Number
       </label>
-      <select class="bg-[#1F1F1F] border border-[#3D3D3D] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#FF0000]"
+      <select class="bg-[#0A0F14] border border-[#E3B53C] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#C43E1C]"
               id="room"
               name="room"
               required>
@@ -22,10 +24,10 @@
 
     <div class="grid grid-cols-2 gap-4">
       <div class="mb-4">
-        <label class="block text-white text-sm font-medium mb-2" for="fire_unitbefore">
+        <label class="block text-[#E3B53C] text-sm font-medium mb-2" for="fire_unitbefore">
           Electricity Unit (Before)
         </label>
-        <input class="bg-[#1F1F1F] border border-[#3D3D3D] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#FF0000]" 
+        <input class="bg-[#0A0F14] border border-[#E3B53C] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#C43E1C]" 
                id="fire_unitbefore" 
                type="number" 
                name="fire_unitbefore"
@@ -33,10 +35,10 @@
       </div>
 
       <div class="mb-4">
-        <label class="block text-white text-sm font-medium mb-2" for="fire_unitafter">
+        <label class="block text-[#E3B53C] text-sm font-medium mb-2" for="fire_unitafter">
           Electricity Unit (After)
         </label>
-        <input class="bg-[#1F1F1F] border border-[#3D3D3D] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#FF0000]" 
+        <input class="bg-[#0A0F14] border border-[#E3B53C] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#C43E1C]" 
                id="fire_unitafter" 
                type="number" 
                name="fire_unitafter"
@@ -44,10 +46,10 @@
       </div>
 
       <div class="mb-4">
-        <label class="block text-white text-sm font-medium mb-2" for="water_unitbefore">
+        <label class="block text-[#E3B53C] text-sm font-medium mb-2" for="water_unitbefore">
           Water Unit (Before)
         </label>
-        <input class="bg-[#1F1F1F] border border-[#3D3D3D] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#FF0000]" 
+        <input class="bg-[#0A0F14] border border-[#E3B53C] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#C43E1C]" 
                id="water_unitbefore" 
                type="number" 
                name="water_unitbefore"
@@ -55,10 +57,10 @@
       </div>
 
       <div class="mb-4">
-        <label class="block text-white text-sm font-medium mb-2" for="water_unitafter">
+        <label class="block text-[#E3B53C] text-sm font-medium mb-2" for="water_unitafter">
           Water Unit (After)
         </label>
-        <input class="bg-[#1F1F1F] border border-[#3D3D3D] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#FF0000]" 
+        <input class="bg-[#0A0F14] border border-[#E3B53C] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#C43E1C]" 
                id="water_unitafter" 
                type="number" 
                name="water_unitafter"
@@ -68,10 +70,10 @@
 
     <div class="grid grid-cols-2 gap-4">
       <div class="mb-4">
-        <label class="block text-white text-sm font-medium mb-2" for="price_per_unit_fire">
+        <label class="block text-[#E3B53C] text-sm font-medium mb-2" for="price_per_unit_fire">
           Electricity Price per Unit
         </label>
-        <input class="bg-[#1F1F1F] border border-[#3D3D3D] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#FF0000]" 
+        <input class="bg-[#0A0F14] border border-[#E3B53C] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#C43E1C]" 
                id="price_per_unit_fire" 
                type="number" 
                name="price_per_unit_fire"
@@ -80,10 +82,10 @@
       </div>
 
       <div class="mb-4">
-        <label class="block text-white text-sm font-medium mb-2" for="price_per_unit_water">
+        <label class="block text-[#E3B53C] text-sm font-medium mb-2" for="price_per_unit_water">
           Water Price per Unit
         </label>
-        <input class="bg-[#1F1F1F] border border-[#3D3D3D] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#FF0000]" 
+        <input class="bg-[#0A0F14] border border-[#E3B53C] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#C43E1C]" 
                id="price_per_unit_water" 
                type="number" 
                name="price_per_unit_water"
@@ -91,10 +93,10 @@
                required>
       </div>
       <div class="mb-4">
-        <label class="block text-white text-sm font-medium mb-2" for="price_room">
+        <label class="block text-[#E3B53C] text-sm font-medium mb-2" for="price_room">
           Room Price
         </label>
-        <input class="bg-[#1F1F1F] border border-[#3D3D3D] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#FF0000]" 
+        <input class="bg-[#0A0F14] border border-[#E3B53C] text-white rounded-lg w-full py-2 px-3 focus:outline-none focus:ring-2 focus:ring-[#C43E1C]" 
                id="price_room" 
                type="number" 
                name="price_room"
@@ -105,72 +107,72 @@
 
     <div class="grid grid-cols-3 gap-4 mb-6">
       <div class="text-right">
-        <label class="block text-white text-sm font-medium mb-2">Total Electricity:</label>
+        <label class="block text-[#E3B53C] text-sm font-medium mb-2">Total Electricity:</label>
         <span id="total_fire" class="text-xl font-bold text-white">0.00</span>
       </div>
       <div class="text-right">
-        <label class="block text-white text-sm font-medium mb-2">Total Water:</label>
+        <label class="block text-[#E3B53C] text-sm font-medium mb-2">Total Water:</label>
         <span id="total_water" class="text-xl font-bold text-white">0.00</span>
       </div>
       
       <div class="text-right">
-        <label class="block text-white text-sm font-medium mb-2">Total Amount:</label>
-        <span id="total_amount" class="text-xl font-bold text-[#FF0000]">0.00</span>
+        <label class="block text-[#E3B53C] text-sm font-medium mb-2">Total Amount:</label>
+        <span id="total_amount" class="text-xl font-bold text-[#C43E1C]">0.00</span>
       </div>
     </div>
 
     <div class="flex items-center justify-between">
-      <button class="bg-[#FF0000] hover:bg-[#CC0000] text-white font-medium py-2 px-6 rounded-full focus:outline-none focus:ring-2 focus:ring-[#FF0000] focus:ring-offset-2 focus:ring-offset-[#282828]" 
+      <button class="bg-[#C43E1C] hover:bg-[#A33518] text-white font-medium py-2 px-6 rounded-full focus:outline-none focus:ring-2 focus:ring-[#E3B53C] focus:ring-offset-2 focus:ring-offset-[#1C2833]" 
               type="submit">
         Calculate and Save
       </button>
-      <button class="bg-[#282828] hover:bg-[#3D3D3D] text-white font-medium py-2 px-6 rounded-full border border-[#3D3D3D] focus:outline-none focus:ring-2 focus:ring-[#3D3D3D]" 
+      <button class="bg-[#1C2833] hover:bg-[#2C3E50] text-[#E3B53C] font-medium py-2 px-6 rounded-full border border-[#E3B53C] focus:outline-none focus:ring-2 focus:ring-[#E3B53C]" 
               type="reset">
         Reset
       </button>
       <button type="button" 
               onclick="showSummaryModal()"
-              class="bg-[#282828] hover:bg-[#3D3D3D] text-white font-medium py-2 px-6 rounded-full border border-[#3D3D3D] focus:outline-none focus:ring-2 focus:ring-[#3D3D3D]">
+              class="bg-[#1C2833] hover:bg-[#2C3E50] text-[#E3B53C] font-medium py-2 px-6 rounded-full border border-[#E3B53C] focus:outline-none focus:ring-2 focus:ring-[#E3B53C]">
         Show Summary
       </button>
 
       <!-- Summary Modal -->
       <div id="summaryModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
-        <div class="bg-[#1F1F1F] p-6 rounded-lg w-96">
-          <h2 class="text-xl font-bold text-white mb-4">Billing Summary</h2>
+        <div class="bg-[#0A0F14] p-6 rounded-lg w-96">
+          <h2 class="text-xl font-bold text-[#E3B53C] mb-4">Billing Summary</h2>
           
           <div class="space-y-3">
             <div class="flex justify-between">
-              <span class="text-gray-300">Room:</span>
+              <span class="text-[#E3B53C]">Room:</span>
               <span id="summary_room" class="text-white"></span>
             </div>
             
             <div class="flex justify-between">
-              <span class="text-gray-300">Electricity Usage:</span>
+              <span class="text-[#E3B53C]">Electricity Usage:</span>
               <span id="summary_electricity" class="text-white"></span>
             </div>
 
             <div class="flex justify-between">
-              <span class="text-gray-300">Water Usage:</span>
+              <span class="text-[#E3B53C]">Water Usage:</span>
               <span id="summary_water" class="text-white"></span>
             </div>
 
             <div class="flex justify-between">
-              <span class="text-gray-300">Room Price:</span>
+              <span class="text-[#E3B53C]">Room Price:</span>
               <span id="summary_room_price" class="text-white"></span>
             </div>
 
-            <div class="border-t border-[#3D3D3D] pt-3">
+            <div class="border-t border-[#E3B53C] pt-3">
               <div class="flex justify-between font-bold">
-                <span class="text-gray-300">Total Amount:</span>
-                <span id="summary_total" class="text-[#FF0000]"></span>
+                <span class="text-[#E3B53C]">Total Amount:</span>
+                <span id="summary_total" class="text-[#C43E1C]"></span>
               </div>
             </div>
           </div>
 
           <div class="mt-6 flex justify-end">
             <button onclick="closeSummaryModal()" 
-                    class="bg-[#FF0000] hover:bg-[#CC0000] text-white font-medium py-2 px-4 rounded-full">
+                    class="bg-[#C43E1C] hover:bg-[#A33518] text-white font-medium py-2 px-4 rounded-full">
               Close
             </button>
           </div>

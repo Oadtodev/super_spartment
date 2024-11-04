@@ -5,97 +5,158 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Luxury Apartment Rentals</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0C0C0C;
+            color: #fff;
+        }
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
 </head>
-<body class="bg-gray-900 text-gray-100">
-    <!-- Hero Section -->
-    <div class="relative h-screen">
-        <div class="absolute inset-0">
-            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" 
-                 alt="Luxury Apartment" 
-                 class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-black opacity-60"></div>
-        </div>
-        
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
-            <div class="flex flex-col justify-center h-full">
-                <h1 class="text-5xl md:text-7xl font-bold text-purple-400 mb-4">
+<body class="bg-[#0C0C0C]">
+    <!-- Navigation -->
+    <nav class="bg-black/90 backdrop-blur-sm shadow-lg fixed w-full z-50 border-b border-gold-500/20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-20 items-center">
+                <div class="text-3xl font-bold text-[#C4A962]">
                     Luxury Living
-                    <span class="block text-white">Redefined</span>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="text-[#C4A962] hover:text-[#E5C77E] focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+                <!-- Desktop menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="/bloghome" class="text-[#C4A962] hover:text-[#E5C77E] font-light tracking-wide">Home</a>
+                    <a href="/" class="text-[#C4A962] hover:text-[#E5C77E] font-light tracking-wide">Management</a>
+                    <a href="#" class="text-[#C4A962] hover:text-[#E5C77E] font-light tracking-wide">Gallery</a>
+                    <a href="#" class="text-[#C4A962] hover:text-[#E5C77E] font-light tracking-wide">Contact</a>
+                </div>
+            </div>
+            <!-- Mobile menu items -->
+            <div id="mobile-menu" class="hidden md:hidden text-center pb-4">
+                <a href="/bloghome" class="block py-2 text-[#C4A962] hover:text-[#E5C77E] font-light">Residences</a>
+                <a href="#" class="block py-2 text-[#C4A962] hover:text-[#E5C77E] font-light">Amenities</a>
+                <a href="#" class="block py-2 text-[#C4A962] hover:text-[#E5C77E] font-light">Gallery</a>
+                <a href="#" class="block py-2 text-[#C4A962] hover:text-[#E5C77E] font-light">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+
+    <!-- Hero Section with Promotion -->
+    <div class="relative pt-20">
+        <div class="absolute inset-0 bg-black/70"></div>
+        <div class="relative max-w-7xl mx-auto px-4 py-40">
+            <div class="text-center text-white">
+                <h1 class="text-6xl md:text-7xl font-bold mb-8 leading-tight">
+                    Experience Unparalleled <br/><span class="text-[#C4A962]">Luxury Living</span>
                 </h1>
-                <p class="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl">
-                    Experience premium apartment living with modern amenities and stunning views
+                <p class="text-xl md:text-2xl mb-12 font-light tracking-wide text-gray-300">
+                    Where sophistication meets comfort in the heart of the city
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <button class="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition duration-300">
-                        View Apartments
-                    </button>
-                    <button class="bg-transparent border-2 border-white hover:bg-white hover:text-gray-900 text-white px-8 py-3 rounded-lg text-lg font-semibold transition duration-300">
-                        Schedule Tour
-                    </button>
+                <div class="bg-black/80 backdrop-blur-md rounded-xl p-8 inline-block border border-[#C4A962]/20">
+                    <p class="text-3xl font-light mb-3">Starting from <span class="text-[#C4A962] font-semibold">฿2,500</span>/month</p>
+                    <p class="text-lg text-gray-400">Limited time exclusive offer</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Features Section -->
-    <div class="bg-gray-800 py-24">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-bold text-purple-400 mb-4">Premium Amenities</h2>
-                <p class="text-gray-400 text-xl">Everything you need for modern living</p>
+    <!-- Featured Apartments -->
+    <div class="py-32 bg-black">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-5xl font-bold text-center mb-20 text-[#C4A962]">Curated Residences</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="rounded-xl overflow-hidden shadow-2xl transition-all duration-500 hover:scale-105 bg-[#0C0C0C] border border-[#C4A962]/10">
+                    <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267" class="w-full h-72 object-cover hover:opacity-90 transition-opacity" alt="Studio">
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-3 text-[#C4A962]">Executive Studio</h3>
+                        <p class="text-gray-400 mb-4 font-light">Perfect for distinguished individuals</p>
+                        <p class="text-[#C4A962] font-semibold text-xl">฿2,000/month</p>
+                    </div>
+                </div>
+                
+                <div class="rounded-xl overflow-hidden shadow-2xl transition-all duration-500 hover:scale-105 bg-[#0C0C0C] border border-[#C4A962]/10">
+                    <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688" class="w-full h-72 object-cover hover:opacity-90 transition-opacity" alt="One Bedroom">
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-3 text-[#C4A962]">Premium Suite</h3>
+                        <p class="text-gray-400 mb-4 font-light">Elegant living for couples</p>
+                        <p class="text-[#C4A962] font-semibold text-xl">฿2,500/month</p>
+                    </div>
+                </div>
+
+                <div class="rounded-xl overflow-hidden shadow-2xl transition-all duration-500 hover:scale-105 bg-[#0C0C0C] border border-[#C4A962]/10">
+                    <img src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd" class="w-full h-72 object-cover hover:opacity-90 transition-opacity" alt="Two Bedroom">
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-3 text-[#C4A962]">Grand Penthouse</h3>
+                        <p class="text-gray-400 mb-4 font-light">The epitome of family luxury</p>
+                        <p class="text-[#C4A962] font-semibold text-xl">฿3,000/month</p>
+                    </div>
+                </div>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-gray-900 p-8 rounded-xl border border-purple-500/20 hover:border-purple-500/40 transition duration-300">
-                    <div class="text-purple-400 mb-4">
-                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">Modern Design</h3>
-                    <p class="text-gray-400">Contemporary architecture with premium finishes and smart home features</p>
-                </div>
+        </div>
+    </div>
 
-                <div class="bg-gray-900 p-8 rounded-xl border border-purple-500/20 hover:border-purple-500/40 transition duration-300">
-                    <div class="text-purple-400 mb-4">
-                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"></path>
-                        </svg>
+    <!-- Promotion Section -->
+    <div class="bg-[#0C0C0C] py-32">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="bg-black/80 rounded-2xl p-16 text-white text-center border border-[#C4A962]/20">
+                <h2 class="text-4xl font-bold mb-12 text-[#C4A962]">Exclusive Privileges</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+                    <div class="bg-[#0C0C0C] backdrop-blur rounded-xl p-8 border border-[#C4A962]/10">
+                        <h3 class="text-2xl font-bold mb-4 text-[#C4A962]">Elite Member Benefits</h3>
+                        <p class="text-gray-400 font-light">Exclusive 10% discount for premium members</p>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-2">Fitness Center</h3>
-                    <p class="text-gray-400">State-of-the-art fitness equipment and yoga studio</p>
-                </div>
-
-                <div class="bg-gray-900 p-8 rounded-xl border border-purple-500/20 hover:border-purple-500/40 transition duration-300">
-                    <div class="text-purple-400 mb-4">
-                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                        </svg>
+                    <div class="bg-[#0C0C0C] backdrop-blur rounded-xl p-8 border border-[#C4A962]/10">
+                        <h3 class="text-2xl font-bold mb-4 text-[#C4A962]">Extended Stay Rewards</h3>
+                        <p class="text-gray-400 font-light">15% off for annual contracts</p>
                     </div>
-                    <h3 class="text-xl font-bold text-white mb-2">24/7 Security</h3>
-                    <p class="text-gray-400">Round-the-clock security and controlled access for your peace of mind</p>
+                    <div class="bg-[#0C0C0C] backdrop-blur rounded-xl p-8 border border-[#C4A962]/10">
+                        <h3 class="text-2xl font-bold mb-4 text-[#C4A962]">VIP Access</h3>
+                        <p class="text-gray-400 font-light">Complimentary valet parking service</p>
+                    </div>
                 </div>
+                <button class="bg-[#C4A962] text-black px-12 py-4 rounded-lg text-lg font-semibold hover:bg-[#E5C77E] transition-colors duration-300">
+                    Reserve Now
+                </button>
             </div>
         </div>
     </div>
 
     <!-- Contact Section -->
-    <div class="bg-gray-900 py-24">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-gray-800 rounded-2xl p-8 md:p-12 shadow-xl border border-purple-500/20">
-                <div class="text-center mb-12">
-                    <h2 class="text-4xl font-bold text-purple-400 mb-4">Get in Touch</h2>
-                    <p class="text-gray-400 text-xl">Ready to experience luxury living? Contact us today.</p>
-                </div>
-                
-                <form class="max-w-2xl mx-auto">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <input type="text" placeholder="Name" class="bg-gray-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500">
-                        <input type="email" placeholder="Email" class="bg-gray-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-500">
+    <div class="bg-black py-32">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-20">
+                <h2 class="text-5xl font-bold mb-6 text-[#C4A962]">Connect With Us</h2>
+                <p class="text-xl text-gray-400 font-light">Begin your journey to elevated living</p>
+            </div>
+            <div class="max-w-2xl mx-auto">
+                <form class="space-y-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <input type="text" placeholder="Full Name" class="w-full px-6 py-4 rounded-lg border border-[#C4A962]/20 bg-[#0C0C0C] text-white focus:ring-2 focus:ring-[#C4A962] focus:border-transparent">
+                        <input type="tel" placeholder="Phone Number" class="w-full px-6 py-4 rounded-lg border border-[#C4A962]/20 bg-[#0C0C0C] text-white focus:ring-2 focus:ring-[#C4A962] focus:border-transparent">
                     </div>
-                    <textarea rows="4" placeholder="Message" class="w-full bg-gray-700 text-white rounded-lg px-4 py-3 mt-6 focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
-                    <button class="w-full bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-lg text-lg font-semibold mt-6 transition duration-300">
-                        Send Message
+                    <input type="email" placeholder="Email Address" class="w-full px-6 py-4 rounded-lg border border-[#C4A962]/20 bg-[#0C0C0C] text-white focus:ring-2 focus:ring-[#C4A962] focus:border-transparent">
+                    <textarea rows="4" placeholder="Your Message" class="w-full px-6 py-4 rounded-lg border border-[#C4A962]/20 bg-[#0C0C0C] text-white focus:ring-2 focus:ring-[#C4A962] focus:border-transparent"></textarea>
+                    <button class="w-full bg-[#C4A962] text-black px-8 py-4 rounded-lg text-lg font-semibold hover:bg-[#E5C77E] transition-colors duration-300">
+                        Send Inquiry
                     </button>
                 </form>
             </div>

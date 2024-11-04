@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Space Statistics Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .space-gradient {
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    }
+    .card-glow {
+      box-shadow: 0 0 15px rgba(66, 153, 225, 0.5);
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    <%- include('navbar') %>
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold text-center mb-8 text-blue-400">Space Station Analytics</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <!-- Stat Cards -->
+      <div class="space-gradient rounded-lg p-6 card-glow">
+        <h3 class="text-lg font-semibold mb-2">Total Rooms</h3>
+        <p class="text-3xl font-bold text-blue-400">42</p>
+        <div class="mt-2 text-sm text-gray-400">+5% from last month</div>
+      </div>
+      
+      <div class="space-gradient rounded-lg p-6 card-glow">
+        <h3 class="text-lg font-semibold mb-2">Occupancy Rate</h3>
+        <p class="text-3xl font-bold text-green-400">89%</p>
+        <div class="mt-2 text-sm text-gray-400">+2% from last month</div>
+      </div>
+      
+      <div class="space-gradient rounded-lg p-6 card-glow">
+        <h3 class="text-lg font-semibold mb-2">Average Stay</h3>
+        <p class="text-3xl font-bold text-purple-400">6.2 months</p>
+        <div class="mt-2 text-sm text-gray-400">-0.5 from last month</div>
+      </div>
+      
+      <div class="space-gradient rounded-lg p-6 card-glow">
+        <h3 class="text-lg font-semibold mb-2">Revenue</h3>
+        <p class="text-3xl font-bold text-yellow-400">$128.5K</p>
+        <div class="mt-2 text-sm text-gray-400">+12% from last month</div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Occupancy Chart -->
+      <div class="space-gradient rounded-lg p-6 card-glow">
+        <h3 class="text-xl font-semibold mb-4">Monthly Occupancy Rate</h3>
+        <canvas id="occupancyChart" class="w-full h-64"></canvas>
+      </div>
+
+      <!-- Revenue Chart -->
+      <div class="space-gradient rounded-lg p-6 card-glow">
+        <h3 class="text-xl font-semibold mb-4">Revenue Trends</h3>
+        <canvas id="revenueChart" class="w-full h-64"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Occupancy Chart
+    const occupancyCtx = document.getElementById('occupancyChart').getContext('2d');
+    new Chart(occupancyCtx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          label: 'Occupancy Rate (%)',
+          data: [75, 82, 80, 85, 87, 89],
+          borderColor: 'rgb(59, 130, 246)',
+          backgroundColor: 'rgba(59, 130, 246, 0.1)',
+          tension: 0.4,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            labels: {
+              color: 'white'
+            }
+          }
+        },
+        scales: {
+          y: {
+            ticks: { color: 'white' },
+            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+          },
+          x: {
+            ticks: { color: 'white' },
+            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+          }
+        }
+      }
+    });
+
+    // Revenue Chart
+    const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+    new Chart(revenueCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        datasets: [{
+          label: 'Revenue ($K)',
+          data: [95, 102, 108, 115, 122, 128.5],
+          backgroundColor: 'rgba(167, 139, 250, 0.8)',
+          borderColor: 'rgb(167, 139, 250)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            labels: {
+              color: 'white'
+            }
+          }
+        },
+        scales: {
+          y: {
+            ticks: { color: 'white' },
+            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+          },
+          x: {
+            ticks: { color: 'white' },
+            grid: { color: 'rgba(255, 255, 255, 0.1)' }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

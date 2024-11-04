@@ -1,25 +1,32 @@
-<nav class="bg-black">
+<nav class="bg-[#020A13]">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
       <div class="flex-shrink-0">
-        <a href="/" class="text-red-600 font-bold text-2xl">Dashboard List </a>
+        <a href="/" class="text-[#4BB1E7] font-bold text-2xl flex items-center">
+          <svg class="w-8 h-8 mr-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#4BB1E7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 17L12 22L22 17" stroke="#4BB1E7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 12L12 17L22 12" stroke="#4BB1E7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Dashboard List
+        </a>
       </div>
 
       <!-- Desktop Menu -->
       <div class="hidden md:block">
         <div class="ml-10 flex items-baseline space-x-4">
-          <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
-          <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Customer</a>
-          <a href="/rent_cal" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">billing</a>
-          <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
-          <a href="#" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">My List</a>
+          <a href="/bloghome" class="text-gray-300 hover:text-[#4BB1E7] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">Home</a>
+          <a href="/maintanance" class="text-gray-300 hover:text-[#4BB1E7] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">Maintanance</a>
+          <a href="/rent_cal" class="text-gray-300 hover:text-[#4BB1E7] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">Billing</a>
+          <a href="/stat" class="text-gray-300 hover:text-[#4BB1E7] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">Statistics</a>
+          <a href="/payment" class="text-gray-300 hover:text-[#4BB1E7] px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">Payment</a>
         </div>
       </div>
 
       <!-- Mobile menu button -->
       <div class="md:hidden">
-        <button type="button" class="mobile-menu-button text-gray-400 hover:text-white focus:outline-none" aria-label="Toggle menu">
+        <button type="button" class="mobile-menu-button text-gray-400 hover:text-[#4BB1E7] focus:outline-none transition-colors duration-200" aria-label="Toggle menu">
           <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
             <path class="open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
             <path class="close hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -31,12 +38,12 @@
 
   <!-- Mobile Menu -->
   <div class="mobile-menu hidden md:hidden">
-    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-      <a href="#" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
-      <a href="#" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">TV Shows</a>
-      <a href="#" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Movies</a>
-      <a href="#" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">New & Popular</a>
-      <a href="#" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">My List</a>
+    <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col items-center bg-[#041526]">
+      <a href="#" class="text-gray-300 hover:text-[#4BB1E7] block px-3 py-2 rounded-md text-base font-medium text-center w-full transition-colors duration-200">Home</a>
+      <a href="#" class="text-gray-300 hover:text-[#4BB1E7] block px-3 py-2 rounded-md text-base font-medium text-center w-full transition-colors duration-200">Customer</a>
+      <a href="#" class="text-gray-300 hover:text-[#4BB1E7] block px-3 py-2 rounded-md text-base font-medium text-center w-full transition-colors duration-200">Billing</a>
+      <a href="#" class="text-gray-300 hover:text-[#4BB1E7] block px-3 py-2 rounded-md text-base font-medium text-center w-full transition-colors duration-200">Dashboard</a>
+      <a href="#" class="text-gray-300 hover:text-[#4BB1E7] block px-3 py-2 rounded-md text-base font-medium text-center w-full transition-colors duration-200">My List</a>
     </div>
   </div>
 </nav>

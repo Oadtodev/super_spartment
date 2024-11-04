@@ -7,13 +7,15 @@ const bodyParser=require('body-parser');
 const path=require('path');
 const multer=require('multer');
 const fs=require('fs');
+const maintanance=require('./models/maintanance');
+const _=require('lodash');
 
 
 
 const app=express();
 
+app.use(express.json());
 mongoose.connect('mongodb+srv://admin:1249712561@cluster0.upixr.mongodb.net/cruddb', {
-  
     
   }).then(() => {
     console.log("Connected to MongoDB");
@@ -57,7 +59,12 @@ app.get('/api/users/countrooms', async (req, res) => {
     res.status(500).json({ error: 'Error counting rooms' });
   }
 });
-
+app.get('/stat',(req,res)=>{
+  res.render('statistic');
+});
+app.get('/listbill',(req,res)=>{
+  res.render('listbill');
+});
 // Routes
 app.get('/rent_cal', (req, res) => {
   res.render('rent_cal');
@@ -77,6 +84,53 @@ app.get('/api/users', async (req, res) => {
   }
 });
 
+app.get('/maintanance',(req,res)=>{
+  res.render('maintanance');
+});
+app.get('/api/maintanance', async (req, res) => {
+  try {
+    const reports = await maintanance.find().sort({ room: 1 }); // Sort by room ascending
+    res.json(reports);
+  } catch (error) {
+    console.error('Error fetching maintenance reports:', error);
+    res.status(500).json({ error: 'Failed to fetch maintenance reports' });
+  }
+});
+app.post('/api/maintanance', async (req, res) => {
+    try {
+        const { room, description } = req.body;
+        const newReport = new maintanance({ room, description });
+        await newReport.save();
+        res.status(200).json({ message: 'Maintenance report created successfully', data: newReport });
+      } catch (error) {
+        console.error('Error saving maintenance report:', error);
+        res.status(500).json({ error: 'Failed to create maintenance report', details: error.message });
+      }
+});
+
+//update status
+app.put('/api/maintanance/:id', async (req, res) => {
+  try {
+    const reportId = req.params.id;
+    const { status } = req.body;
+    await maintanance.findByIdAndUpdate(reportId, { status });
+    res.status(200).json({ message: 'Status updated successfully' });
+  } catch (error) {
+    console.error('Error updating status:', error);
+    res.status(500).json({ error: 'Failed to update status' });
+  }
+});
+
+app.delete('/api/maintanance/:id', async (req, res) => {
+  try {
+    const reportId = req.params.id;
+    await maintanance.findByIdAndDelete(reportId);
+    res.status(200).json({ message: 'Report deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting report:', error);
+    res.status(500).json({ error: 'Failed to delete report' });
+  }
+});
 
 //blog home
 app.get('/bloghome',(req,res)=>{
@@ -236,10 +290,13 @@ app.post('/api/rent_cal', async (req, res) => {
     });
 
 
-
-
     ///test
-
+    app.get('/auth',(req,res)=>{
+      res.render('auth');
+    });
+app.get('/payment',(req,res)=>{
+  res.render('payment');
+});
 
 app.listen(PORT,()=>{
     console.log(`Server is running at http://localhost:${PORT}`);
