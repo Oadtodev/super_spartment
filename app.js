@@ -167,6 +167,26 @@ app.get('/edit/:id', async (req, res) => {
   }
 });
 
+app.get('/api/edit/users/:id', async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await Users.findById(userId);
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching user for edit' });
+  }
+});
+app.put('/api/edit/users/:id', upload.single('image'), async (req, res) => {
+    try {
+      const userId = req.params.id;
+      const { room, name, citizenid, tel, carinfo } = req.body;
+      await Users.findByIdAndUpdate(userId, { room, name, citizenid, tel, carinfo });
+      res.status(200).json({ message: 'User updated successfully' });
+    } catch (error) {
+      res.status(500).json({ error: 'Error updating user' });
+    }
+  });
+
 // Replace basic upload middleware with configured version
 app.get('/',(req,res)=>{
     res.render('index');
