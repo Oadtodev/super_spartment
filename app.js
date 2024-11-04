@@ -28,6 +28,21 @@ app.use('/uploads', express.static('uploads'));
 app.use(express.static(path.join(__dirname, 'public')));
 const PORT=process.env.PORT || 5000;
 //database connect
+//middleware
+// Middleware to log API requests
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url} ${new Date().toLocaleString()}`);
+  next();
+})
+app.use((req, res, next) => {
+  const ip = req.ip || req.connection.remoteAddress;
+  const method = req.method;
+  const url = req.originalUrl;
+  const timestamp = new Date().toISOString();
+  
+  console.log(`[${timestamp}] ${method} ${url} - IP: ${ip}`);
+  next();
+});
 
 
 // Set up multer for file uploads
@@ -244,7 +259,7 @@ app.post('/api/rent_cal', async (req, res) => {
   
       await rentCal.save();
       
-      res.status(201).json({ message: `Rent calculation saved successfully! ${total_amount}` });
+     res.render('rent_cal',{msg:`Rent calculation saved successfully!`});
      
     } catch (error) {
       console.error("Error saving rent calculation:", error);
@@ -252,6 +267,15 @@ app.post('/api/rent_cal', async (req, res) => {
     }
   });
 
+  app.get('/api/rent_cal', async (req, res) => {
+    try {
+      const rentData = await RentCal.find();
+      res.json(rentData);
+    } catch (error) {
+      console.error('Error fetching rent data:', error);
+      res.status(500).json({ error: 'Failed to fetch rent data' });
+    }
+  });
 
   ////post users
   app.post('/api/users', upload.single('image'), async (req, res) => {
