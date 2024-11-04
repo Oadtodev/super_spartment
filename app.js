@@ -301,3 +301,4 @@ app.get('/payment',(req,res)=>{
 app.listen(PORT,()=>{
     console.log(`Server is running at http://localhost:${PORT}`);
 })
+module.exports = app;
